@@ -1,0 +1,68 @@
+plugins {
+	id 'java'
+	id 'java-library'
+	id 'eclipse'
+    id 'maven-publish'
+}
+
+group = 'com.cormac.fhir' // Set project-level property
+version = '0.0.1' // Set project-level property
+def applicationName = 'FHIRSDS' // Local variable for the artifact name
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+    flatDir {
+	    dirs 'libs'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+            srcDirs 'src/main/resources'
+           }
+    }
+}
+
+dependencies {
+	api files('libs/fhir.emf-4.3.0.jar')
+	implementation 'org.eclipse.emfcloud:emfjson-jackson:2.2.0'    
+	implementation 'org.eclipse.emf:org.eclipse.emf.common:+'
+    implementation 'org.eclipse.emf:org.eclipse.emf.ecore:+'
+    implementation 'org.eclipse.emf:org.eclipse.emf.ecore.xmi:+'
+
+   	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.6'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+    api 'com.google.guava:guava:31.1-jre'
+    testImplementation 'org.everit.json:org.everit.json.schema:1.5.0'
+    testImplementation 'com.networknt:json-schema-validator:1.0.42'
+//    testImplementation(group: "com.github.java-json-tools", name: "json-schema-validator", version: "2.2.14");
+	 testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+}
+
+processResources {
+  from ('src/main/java') {
+     include '**/*.ecore'
+  }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId applicationName
+            version project.version
+            from(components.java)
+        }
+	}
+}

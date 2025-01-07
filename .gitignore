@@ -1,0 +1,10 @@
+.gradle
+**/.DS_Store
+**/*.log
+**/*.zip
+build/
+bin/
+data/
+out/
+.classpath/
+.project/

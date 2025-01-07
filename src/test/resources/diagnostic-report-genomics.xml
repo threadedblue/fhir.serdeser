@@ -1,0 +1,52 @@
+<DiagnosticReport xmlns="http://hl7.org/fhir">
+  <id value="GenomicsReportExample01"/>
+  <meta>
+    <profile
+             value="http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genomics-report"/>
+  </meta>
+  <text>
+    <status value="generated"/>
+    <div xmlns="http://www.w3.org/1999/xhtml"><h2><span title="Codes: {http://loinc.org 57979-7}">HLA-B*15:02 [Presence]</span> (<span title="Codes: {http://terminology.hl7.org/CodeSystem/v2-0074 GE}">Genetics</span>) </h2><table class="grid"><tr><td>Subject</td><td><b>Adam B. Everyman </b>  1951-01-20 ( Medical Record Number: m123 (USUAL))</td></tr><tr><td>When For</td><td>2016</td></tr><tr><td>Reported</td><td>Mar 6, 2018, 5:00:00 AM</td></tr></table><p><b>Report Details</b></p><table class="grid"><tr><td><b>Code</b></td><td><b>Value</b></td><td><b>Note</b></td><td><b>When For</b></td></tr><tr><td><a href="Observation-TherapeuticImplicationExample1.html"><span title="Codes: {http://hl7.org/fhir/uv/genomics-reporting/CodeSystem/TbdCodes therapeutic-implication}">Therapeutic Implication</span></a></td><td></td><td></td><td></td></tr><tr><td><a href="Observation-GenotypeExample1.html"><span title="Codes: {http://loinc.org 84413-4}">Genotype display name</span></a></td><td><span title="Codes: {http://www.ncbi.nlm.nih.gov/clinvar 14909}">HLA-B*15:02</span></td><td></td><td>2018</td></tr><tr><td><a href="Observation-OverallInterpExample1.html"><span title="Codes: {http://loinc.org 51968-6}">Discrete variation analysis overall interpretation</span></a></td><td><span title="Codes: {http://loinc.org LA6576-8}">Positive</span></td><td>Patient is positive for high risk allele HLA-B*15:02 and should not be treated with CBZ.</td><td></td></tr></table></div>
+  </text>
+  <extension
+             url="http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/RecommendedAction">
+    <valueReference>
+      <reference value="Task/TaskMedChgExample1"/>
+    </valueReference>
+  </extension>
+  <basedOn>
+    <reference value="ServiceRequest/GenomicsServiceRequestExample01"/>
+  </basedOn>
+  <status value="final"/>
+  <category>
+    <coding>
+      <system value="http://terminology.hl7.org/CodeSystem/v2-0074"/>
+      <code value="GE"/>
+    </coding>
+  </category>
+  <code>
+    <coding>
+      <system value="http://loinc.org"/>
+      <code value="57979-7"/>
+      <display value="HLA-B*15:02 [Presence]"/>
+    </coding>
+  </code>
+  <subject>
+    <reference value="Patient/CGPatientExample01"/>
+  </subject>
+  <effectiveDateTime value="2016"/>
+  <issued value="2018-03-06T00:00:00-05:00"/>
+  <performer>
+    <reference value="Organization/ExampleOrg"/>
+  </performer>
+  <result>
+    <reference value="Observation/TherapeuticImplicationExample1"/>
+    <display value="impact for high risk allele"/>
+  </result>
+  <result>
+    <reference value="Observation/GenotypeExample1"/>
+  </result>
+  <result>
+    <reference value="Observation/OverallInterpExample1"/>
+  </result>
+</DiagnosticReport>
