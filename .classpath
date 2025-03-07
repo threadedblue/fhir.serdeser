@@ -1,32 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="bin/test" path="src/test/resources">
+	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry output="bin/main" kind="src" path="src/main/java">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/main" kind="src" path="src/main/resources">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/test/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/test" path="src/test/java">
+	<classpathentry output="bin/test" kind="src" path="src/test/resources">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/main/resources">
-		<attributes>
-			<attribute name="gradle_scope" value="main"/>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/main/java">
-		<attributes>
-			<attribute name="gradle_scope" value="main"/>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/"/>
-	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/31.1-jre/c388a68bc2b17a314dfa7c769d858ada0fc32dcf/guava-31.1-jre-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/31.1-jre/60458f877d055d0c9114d9e1a2efb737b4bc282c/guava-31.1-jre.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/org/cormac/fhir.emf/4.3.0/fhir.emf-4.3.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/org/cormac/fhir.emf/4.3.0/fhir.emf-4.3.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.eclipse.emfcloud/emfjson-jackson/2.2.0/361e2bf5a79b6741fec0e72240cf9b51274c545a/emfjson-jackson-2.2.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.eclipse.emfcloud/emfjson-jackson/2.2.0/6f0b3d7748acb358ed434393c6d90e71872460dc/emfjson-jackson-2.2.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.38.0/org.eclipse.emf.ecore.xmi-2.38.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.eclipse.emf/org.eclipse.emf.ecore.xmi/2.38.0/185f8239031b16135ff32f829452cdd712816ae4/org.eclipse.emf.ecore.xmi-2.38.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/org/eclipse/emf/org.eclipse.emf.ecore/2.38.0/org.eclipse.emf.ecore-2.38.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.eclipse.emf/org.eclipse.emf.ecore/2.38.0/fb5551d17e8093dba1bfb11c00a1a861b18763d8/org.eclipse.emf.ecore-2.38.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.eclipse.emf/org.eclipse.emf.common/2.41.0/924cc253a5685953d94cef0ec5335b149c608e94/org.eclipse.emf.common-2.41.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.eclipse.emf/org.eclipse.emf.common/2.41.0/8fa8b2431c5e505a66873be79971336e628b6d60/org.eclipse.emf.common-2.41.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.12.6/jackson-databind-2.12.6-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.12.6/jackson-databind-2.12.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.17.2/88b2d34add2e0370c6a6d03ac7b3609b143e46bd/log4j-core-2.17.2-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.17.2/fa43ba4467f5300b16d1e0742934149bfc5ac564/log4j-core-2.17.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-slf4j-impl/2.17.2/74a61478bcc5401ad43eb5ed422d4e987343cbd7/log4j-slf4j-impl-2.17.2-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-slf4j-impl/2.17.2/183f7c95fc981f3e97d008b363341343508848e/log4j-slf4j-impl-2.17.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Geoffry/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.11.0/d060e42b6aa896a3abe2ec612e1cf8cc307f8a49/error_prone_annotations-2.11.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.11.0/c5a0ace696d3f8b1c1d8cc036d8c03cc0cbe6b69/error_prone_annotations-2.11.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.12.6/jackson-annotations-2.12.6-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.12.6/jackson-annotations-2.12.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.12.6/jackson-core-2.12.6-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.12.6/jackson-core-2.12.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.17.2/91a89f75de4f567c38dc7ec9f83f2a1afd2c2915/log4j-api-2.17.2-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.17.2/f42d6afa111b4dec5d2aea0fe2197240749a4ea6/log4j-api-2.17.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.32/4381b152f738580aef4e436b2692a3db30609b26/slf4j-api-1.7.32-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.32/cdcff33940d9f2de763bc41ea05a0be5941176c3/slf4j-api-1.7.32.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.everit.json/org.everit.json.schema/1.5.0/bfa794124bc236a77d28b2f22c773c21439451e2/org.everit.json.schema-1.5.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.everit.json/org.everit.json.schema/1.5.0/50bb618f6a3768b7e7c9da99fdf666358407fc99/org.everit.json.schema-1.5.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/com.networknt/json-schema-validator/1.0.42/7ea2e0117476149b3dd6631f8b9e1364874f4965/json-schema-validator-1.0.42-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/com.networknt/json-schema-validator/1.0.42/1b0e52708c8bcff51b3666591915c643cc7adddd/json-schema-validator-1.0.42.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.7.1/4f2ca409307a4791a2d855b99ddbbf2c904b5fd5/junit-platform-commons-1.7.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.7.1/7c49f0074842d07f4335de2389d624a7437d1407/junit-platform-commons-1.7.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.7.1/ebca04edd1975a8fd42846c4f6d0b8fec3d6efc1/junit-jupiter-api-5.7.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.7.1/a7261dff44e64aea7f621842eac5977fd6d2412d/junit-jupiter-api-5.7.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.json/json/20160810/92f4b89bc0bb4c7c3f7b52724568a901b7e0195b/json-20160810-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.json/json/20160810/aca5eb39e2a12fddd6c472b240afe9ebea3a6733/json-20160810.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/1779e91e01dc506f388c350a8684f77c43943a08/commons-validator-1.5.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/86d05a46e8f064b300657f751b5a98c62807e2a0/commons-validator-1.5.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.5/f7d878153e86a1cdddf6b37850e00a9f8bff726f/commons-lang3-3.5-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.5/6c6c702c89bfff3cd9e80b04d668c5e190d588c6/commons-lang3-3.5.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.jruby.joni/joni/2.1.31/84bd68cded6142e82da3a3a9cea90fae773e92f7/joni-2.1.31-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.jruby.joni/joni/2.1.31/d7902dfb0a0c89bc613ff1eae281174ac59def96/joni-2.1.31.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/f3c15fe970af864390c8d0634c9f16aca1b064a8/apiguardian-api-1.1.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/fc9dff4bb36d627bdc553de77e1f17efd790876c/apiguardian-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/commons-beanutils/commons-beanutils/1.9.2/53746de93a0b30f346c082074a40c01a6cebdfa7/commons-beanutils-1.9.2-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/commons-beanutils/commons-beanutils/1.9.2/7a87d845ad3a155297e8f67d9008f4c1e5656b71/commons-beanutils-1.9.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/commons-digester/commons-digester/1.8.1/3165d0f4fec8cd6836e7a3bc2986b3ff2bd101d/commons-digester-1.8.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/commons-digester/commons-digester/1.8.1/3dec9b9c7ea9342d4dbe8c38560080d85b44a015/commons-digester-1.8.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Geoffry/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2-sources.jar" kind="lib" path="C:/Users/Geoffry/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.jruby.jcodings/jcodings/1.0.46/8b69f7f1710130cb77a483403d1bb7824907dd4b/jcodings-1.0.46-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.jruby.jcodings/jcodings/1.0.46/781db88772093f825d8caf4014e4fb99121beb2f/jcodings-1.0.46.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.7.1/987bee3f7c9ae0c219bae82e3cfe073708cbadad/junit-platform-engine-1.7.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.7.1/d276a968c57f5d60a421dedd1f8b6ca2fae09e86/junit-platform-engine-1.7.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.7.1/7c0d81d9af26a35e3f552eaaad2aa6867218d534/junit-jupiter-engine-5.7.1-sources.jar" kind="lib" path="C:/Users/Geoffry/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.7.1/7fcfa59c5533abb41f86b1408960737eeaf1f49f/junit-jupiter-engine-5.7.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
 </classpath>

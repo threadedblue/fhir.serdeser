@@ -36,7 +36,6 @@ import org.hl7.fhir.emf.deser.CodeDeserializer;
 import org.hl7.fhir.emf.deser.DateDeserializer;
 import org.hl7.fhir.emf.deser.DateTimeDeserializer;
 import org.hl7.fhir.emf.deser.DecimalDeserializer;
-import org.hl7.fhir.emf.deser.EMFDeserializer;
 import org.hl7.fhir.emf.deser.InstantDeserializer;
 import org.hl7.fhir.emf.deser.IntegerDeserializer;
 import org.hl7.fhir.emf.deser.ResourceContainerDeserializer;
@@ -71,9 +70,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class FHIRSDS {
+public class FHIRSDS2 {
 
-	private static final Logger log = LoggerFactory.getLogger(FHIRSDS.class);
+	private static final Logger log = LoggerFactory.getLogger(FHIRSDS2.class);
 
 	private static ResourceSet resourceSet = new ResourceSetImpl();
 	private static Resource resource;
@@ -104,6 +103,13 @@ public class FHIRSDS {
 
 		module.setIdentityInfo(new EcoreIdentityInfo("_id", new ValueWriterIdImpl()));
 
+//		module.setReferenceSerializer(new JsonSerializer<EObject>() {
+//			@Override
+//			public void serialize(EObject v, JsonGenerator g, SerializerProvider s) throws IOException {
+//				log.info(((JsonResource) v.eResource()).getID(v));
+//				g.writeString(((JsonResource) v.eResource()).getID(v));
+//			}
+//		});
 		module.setReferenceDeserializer(new JsonDeserializer<ReferenceEntry>() {
 			@Override
 			public ReferenceEntry deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
@@ -119,7 +125,6 @@ public class FHIRSDS {
 				return new ReferenceEntry.Base(parent, reference, parser.getText());
 			}
 		});
-
 		module.addSerializer(org.hl7.fhir.Base64Binary.class, new Base64Serializer());
 		module.addSerializer(org.hl7.fhir.Boolean.class, new BooleanSerializer());
 		module.addSerializer(org.hl7.fhir.Code.class, new CodeSerializer());
@@ -133,10 +138,12 @@ public class FHIRSDS {
 		module.addSerializer(org.hl7.fhir.Uri.class, new UriSerializer());
 		module.addSerializer(org.hl7.fhir.Url.class, new UrlSerializer());
 
-		module.addDeserializer(EObject.class, new EMFDeserializer());
 		module.addDeserializer(org.hl7.fhir.Base64Binary.class, new Base64Deserializer());
 		module.addDeserializer(org.hl7.fhir.Boolean.class, new BooleanDeserializer());
+		module.addDeserializer(org.hl7.fhir.BundleType.class, new BundleTypeDeserializer());
+		module.addDeserializer(org.hl7.fhir.Canonical.class, new CanonicalDeserializer());
 		module.addDeserializer(org.hl7.fhir.Code.class, new CodeDeserializer());
+
 		module.addDeserializer(org.hl7.fhir.Date.class, new DateDeserializer());
 		module.addDeserializer(org.hl7.fhir.DateTime.class, new DateTimeDeserializer());
 		module.addDeserializer(org.hl7.fhir.Decimal.class, new DecimalDeserializer());
@@ -146,13 +153,11 @@ public class FHIRSDS {
 		module.addDeserializer(org.hl7.fhir.Time.class, new TimeDeserializer());
 		module.addDeserializer(org.hl7.fhir.Uri.class, new UriDeserializer());
 		module.addDeserializer(org.hl7.fhir.Url.class, new UrlDeserializer());
-		
-		module.addDeserializer(org.hl7.fhir.BundleType.class, new BundleTypeDeserializer());
-		module.addDeserializer(org.hl7.fhir.Canonical.class, new CanonicalDeserializer());
 //		module.addDeserializer(org.hl7.fhir.BundleEntry.class, new BundleEntryDeserializer());
 		module.addDeserializer(ResourceContainer.class, new ResourceContainerDeserializer());
 //		module.addDeserializer(BundleType.class, new BundleTypeDeserializer());
 		addEnumDeserializers();
+
 		mapper.registerModule(module);
 	}
 
@@ -205,6 +210,26 @@ public class FHIRSDS {
 		return null;
 	}
 
+//	static EObject loadJSON(InputStream reader) {
+//		URI uri = URI.createURI("input.json");
+//		resource = resourceSet.createResource(uri);
+//		EObject eObject = null;
+//		java.lang.String s = null;
+//		try {
+//			JsonNode jn = mapper.readTree(reader);
+//			s = jn.get("resourceType").textValue();
+//			Class clazz = Class.forName(java.lang.String.format("org.hl7.fhir.%s", s));
+//			eObject = (EObject) mapper.reader().withAttribute(EMFContext.Attributes.RESOURCE, resource).forType(clazz)
+//					.readValue(jn);
+//		} catch (IOException e) {
+//			log.error(e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			log.error(java.lang.String.format("resourceType %s is not a valid FHIR resource name.", s));
+//			e.printStackTrace();
+//		}
+//		return eObject;
+//	}
+
 	public static EObject loadJSON(InputStream reader) {
 		EObject eObject = null;
 		try {
@@ -222,20 +247,18 @@ public class FHIRSDS {
 		EObject eObject = null;
 		try {
 			java.lang.String s = jn.get("resourceType").textValue();
-			log.debug("jnClass=" + s);
+			log.trace("jnClass=" + s);
 			Class<?> clazz = classFromName(s);
-			log.debug("clazz=" + clazz);
 			eObject = (EObject) mapper.reader().withAttribute(EMFContext.Attributes.RESOURCE, resource).forType(clazz)
 					.readValue(jn);
-			log.debug("eObject=" + eObject);
 		} catch (IOException e) {
-			log.error(e.getMessage(), e);
+			log.error(e.getMessage());
 		} catch (IllegalArgumentException e) {
-			log.error(e.getMessage(), e);
+			e.printStackTrace();
 		} catch (SecurityException e) {
-			log.error(e.getMessage(), e);
+			e.printStackTrace();
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 
 		return eObject;
@@ -563,10 +586,6 @@ public class FHIRSDS {
 	}	
 	
 	public static void main(String[] args) {
-		FHIRSDS app = new FHIRSDS();
-	}
-
-	public static ObjectMapper getMapper() {
-		return mapper;
+		FHIRSDS2 app = new FHIRSDS2();
 	}
 }

@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 class FHIRSDSTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(FHIRSDSTest.class);
+	private static final Logger log = LoggerFactory.getLogger(FHIRSDSTest.class);
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -55,7 +55,7 @@ class FHIRSDSTest {
 		try {
 			EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
 			assertNotNull(eObject);
-			LOG.info("eObject=" + eObject.eClass().getName());
+			log.info("eObject=" + eObject.eClass().getName());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,17 +65,13 @@ class FHIRSDSTest {
 	@Test
 	void testLoadJSONBundle() {
 		InputStream reader = null;
-		try {
-			reader = new FileInputStream(
-					"/Users/gcr/eccWk/FHIRSDSData/v4-synthea-fhir/Aaron697_Brekke496_2fa15bc7-8866-461a-9000-f739e425860a.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		reader = FHIRSDSTest.class.getClassLoader().getResourceAsStream("Alicia.json");
+
 		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		ValueSet sut = (ValueSet) eObject;
 		assertNotNull(sut);
-		LOG.info("ValueSet=" + sut.eClass().getName());
+		log.info("ValueSet=" + sut.eClass().getName());
 	}
 
 	@Test
@@ -84,7 +80,7 @@ class FHIRSDSTest {
 		File syntheaDir = new File("/Users/gcr/eccWk/FHIRSDSData/examples-json");
 		int fileCount = 0;
 		for (File syntheaFile : syntheaDir.listFiles()) {
-			LOG.info("Processing " + (++fileCount) + "==>" + syntheaFile.getName());
+			log.info("Processing " + (++fileCount) + "==>" + syntheaFile.getName());
 			try {
 				reader = new FileInputStream(syntheaFile);
 			} catch (IOException e) {
@@ -94,23 +90,19 @@ class FHIRSDSTest {
 			assertNotNull(eObject);
 			ValueSet sut = (ValueSet) eObject;
 			assertNotNull(sut);
-			LOG.info("ValueSet=" + sut.eClass().getName());
+			log.info("ValueSet=" + sut.eClass().getName());
 		}
 	}
 
 	@Test
 	void testLoadJSONAddr1() {
 		InputStream reader = null;
-		try {
-			reader = new FileInputStream("data/address-1.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		reader = FHIRSDSTest.class.getClassLoader().getResourceAsStream("Alicia.json");
 		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		Address sut = (Address) eObject;
 		assertNotNull(sut);
-		LOG.info("Addr1=" + sut.eClass().getName());
+		log.info("Addr1=" + sut.eClass().getName());
 	}
 
 	@Test
@@ -125,7 +117,7 @@ class FHIRSDSTest {
 		assertNotNull(eObject);
 		Address sut = (Address) eObject;
 		assertNotNull(sut);
-		LOG.info("Addr2=" + sut.eClass().getName());
+		log.info("Addr2=" + sut.eClass().getName());
 	}
 	
 	@Test
@@ -140,7 +132,7 @@ class FHIRSDSTest {
 		assertNotNull(eObject);
 		ClaimResponse sut = (ClaimResponse) eObject;
 		assertNotNull(sut);
-		LOG.info("ClaimResponse=" + sut.eClass().getName());
+		log.info("ClaimResponse=" + sut.eClass().getName());
 	}
 	
 	@Test
@@ -155,7 +147,7 @@ class FHIRSDSTest {
 		assertNotNull(eObject);
 		ExplanationOfBenefit sut = (ExplanationOfBenefit) eObject;
 		assertNotNull(sut);
-		LOG.info("ExplanationOfBenefit=" + sut.eClass().getName());
+		log.info("ExplanationOfBenefit=" + sut.eClass().getName());
 	}
 
 	@Test
@@ -169,7 +161,7 @@ class FHIRSDSTest {
 		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		Organization sut = (Organization) eObject;
-		LOG.info("Organization-1=" + sut.eClass().getName());
+		log.info("Organization-1=" + sut.eClass().getName());
 		assertNotNull(sut);
 		assertNotNull(sut.getTelecom());
 		assertNotNull(sut.getTelecom().get(0));
@@ -193,7 +185,7 @@ class FHIRSDSTest {
 		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		Organization sut = (Organization) eObject;
-		LOG.info("Organization-3=" + sut.eClass().getName());
+		log.info("Organization-3=" + sut.eClass().getName());
 		assertNotNull(sut);
 		assertNotNull(sut.getTelecom());
 		assertNotNull(sut.getTelecom().get(0));
@@ -217,7 +209,7 @@ class FHIRSDSTest {
 		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		ContactPoint sut = (ContactPoint) eObject;
-		LOG.info("ContactPoint=", sut.eClass().getName());
+		log.info("ContactPoint=", sut.eClass().getName());
 		assertNotNull(sut);
 	}
 
@@ -232,7 +224,7 @@ class FHIRSDSTest {
 		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		Patient sut = (Patient) eObject;
-		LOG.info("Patient-1=" + sut.eClass().getName());
+		log.info("Patient-1=" + sut.eClass().getName());
 		assertNotNull(sut);
 	}
 
