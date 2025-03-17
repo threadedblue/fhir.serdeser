@@ -230,7 +230,7 @@ public class FHIRDeserializationSwitch extends FhirSwitch<EObject> {
 
 		try {
 			JsonNode dataNode = p.readValueAs(JsonNode.class);
-			EObject eObject = FHIRSDS.loadJSON(dataNode);
+			EObject eObject = FHIRSerDeser.loadJSON(dataNode);
 			java.lang.String s = dataNode.get("resourceType").textValue();
 			log.trace("beClass=" + s);
 		} catch (SecurityException e) {

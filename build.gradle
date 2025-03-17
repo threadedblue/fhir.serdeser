@@ -5,9 +5,9 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.cormac.fhir' // Set project-level property
+group = 'org.hl7.fhir.emf'
 version = '0.0.1' // Set project-level property
-def applicationName = 'FHIRSDS' // Local variable for the artifact name
+def applicationName = 'fhir.serdeser' // Local variable for the artifact name
 
 
 java {
@@ -33,7 +33,7 @@ sourceSets {
 }
 
 dependencies {
-	implementation 'org.cormac:fhir.emf:4.3.0'
+	implementation 'org.hl7:fhir.emf:4.3.0'
 	implementation 'org.eclipse.emfcloud:emfjson-jackson:2.2.0'    
 	implementation 'org.eclipse.emf:org.eclipse.emf.common:2.40.0'
 	implementation 'org.eclipse.emf:org.eclipse.emf.ecore:2.38.0'
@@ -55,6 +55,23 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
 }
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version
+        )
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE  // Ignore duplicate entries
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
 
 processResources {
   from ('src/main/java') {

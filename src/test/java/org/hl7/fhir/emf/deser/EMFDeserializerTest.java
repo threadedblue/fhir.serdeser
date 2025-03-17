@@ -20,7 +20,7 @@ import org.eclipse.emfcloud.jackson.module.EMFModule;
 import org.hl7.fhir.Bundle;
 import org.hl7.fhir.DateTime;
 import org.hl7.fhir.Observation;
-import org.hl7.fhir.emf.FHIRSDS;
+import org.hl7.fhir.emf.FHIRSerDeser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -79,8 +79,8 @@ class EMFDeserializerTest {
 
         // Deserialize JSON into a Bundle (FHIR EMF Model)
         StringReader reader = new StringReader(json);
-        JsonNode jn = FHIRSDS.getMapper().readTree(reader);
-		EObject bundleObj = (EObject) FHIRSDS.getMapper().reader().withAttribute(EMFContext.Attributes.RESOURCE, resource).forType(Bundle.class)
+        JsonNode jn = FHIRSerDeser.getMapper().readTree(reader);
+		EObject bundleObj = (EObject) FHIRSerDeser.getMapper().reader().withAttribute(EMFContext.Attributes.RESOURCE, resource).forType(Bundle.class)
 				.readValue(jn);
         assertNotNull(bundleObj, "Bundle should not be null");
         assertTrue(bundleObj instanceof Bundle, "Deserialized object should be an instance of Bundle");

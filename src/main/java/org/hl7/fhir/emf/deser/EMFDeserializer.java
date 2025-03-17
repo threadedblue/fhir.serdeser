@@ -6,10 +6,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.hl7.fhir.FhirFactory;
 import org.hl7.fhir.FhirPackage;
-import org.hl7.fhir.emf.FHIRDeserializationSwitch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
