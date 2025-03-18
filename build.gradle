@@ -3,6 +3,7 @@ plugins {
 	id 'java-library'
 	id 'eclipse'
     id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'org.hl7.fhir.emf'
@@ -52,8 +53,8 @@ dependencies {
     api 'com.google.guava:guava:31.1-jre'
     testImplementation 'org.everit.json:org.everit.json.schema:1.5.0'
     testImplementation 'com.networknt:json-schema-validator:1.0.42'
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0' 
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 jar {
@@ -69,8 +70,12 @@ jar {
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.EC', 'META-INF/*.MF'
 }
 
+shadowJar {
+    archiveClassifier.set('')
+}
 
 
 processResources {
@@ -78,10 +83,11 @@ processResources {
      include '**/*.ecore'
   }
 }
- 
+
 test {
     useJUnitPlatform()
     testLogging.showStandardStreams = true
+    jvmArgs '-Djava.security.manager=allow'
 }
 
 publishing {
