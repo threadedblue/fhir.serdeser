@@ -3,7 +3,7 @@ plugins {
 	id 'java-library'
 	id 'eclipse'
     id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+//    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'org.hl7.fhir.emf'
@@ -73,9 +73,9 @@ jar {
     exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.EC', 'META-INF/*.MF'
 }
 
-shadowJar {
-    archiveClassifier.set('')
-}
+// shadowJar {
+//     archiveClassifier.set('')
+// }
 
 
 processResources {

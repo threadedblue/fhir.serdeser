@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -16,6 +17,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.emfcloud.jackson.annotations.EcoreIdentityInfo;
 import org.eclipse.emfcloud.jackson.annotations.EcoreTypeInfo;
@@ -25,7 +27,6 @@ import org.eclipse.emfcloud.jackson.module.EMFModule;
 import org.eclipse.emfcloud.jackson.resource.JsonResourceFactory;
 import org.eclipse.emfcloud.jackson.utils.ValueReader;
 import org.eclipse.emfcloud.jackson.utils.ValueWriter;
-import org.hl7.fhir.ExplanationOfBenefit;
 import org.hl7.fhir.FhirPackage;
 import org.hl7.fhir.ResourceContainer;
 import org.hl7.fhir.emf.Finals.SDS_FORMAT;
@@ -37,7 +38,6 @@ import org.hl7.fhir.emf.deser.CodeDeserializer;
 import org.hl7.fhir.emf.deser.DateDeserializer;
 import org.hl7.fhir.emf.deser.DateTimeDeserializer;
 import org.hl7.fhir.emf.deser.DecimalDeserializer;
-import org.hl7.fhir.emf.deser.EMFDeserializer;
 import org.hl7.fhir.emf.deser.ExplanationOfBenefitDeserialazer;
 import org.hl7.fhir.emf.deser.InstantDeserializer;
 import org.hl7.fhir.emf.deser.IntegerDeserializer;
@@ -95,6 +95,7 @@ public class FHIRSerDeser {
 		resourceSet.getPackageRegistry().put(NamespacePackage.eNS_URI, NamespacePackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new XMLResourceFactoryImpl());
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("json", new JsonResourceFactory());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 
 // 		We are not supporting RDF at this time.  There seems to be no demand.
 //		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ttl", new TTLResourceFactory());
@@ -175,6 +176,8 @@ public class FHIRSerDeser {
 			return loadXML(reader);
 		case JSON:
 			return loadJSON(reader);
+		case ECORE:
+			return loadEcore(reader);
 //		case RDF_TTL:
 //			return loadRDF(reader, RDFFormat.TURTLE);
 //		case RDF_N3:
@@ -185,7 +188,7 @@ public class FHIRSerDeser {
 	}
 
 	public static EObject loadXML(InputStream reader) {
-		URI uri = URI.createURI("input.xml");
+		URI uri = assembleURI(Finals.SDS_FORMAT.XML);
 		try {
 			resource = resourceSet.createResource(uri);
 			resource.load(reader, Collections.EMPTY_MAP);
@@ -236,6 +239,40 @@ public class FHIRSerDeser {
 		return eObject;
 	}
 
+	public static EObject loadEcore(InputStream reader) {
+		URI uri = assembleURI(Finals.SDS_FORMAT.ECORE);
+		try {
+			resource = resourceSet.createResource(uri);
+			resource.load(reader, Collections.EMPTY_MAP);
+			EList<EObject> eList = resource.getContents();
+			if (eList.size() > 0) {
+				EObject eObject = (EObject) resource.getContents().get(0);
+				return eObject;
+			} else {
+				log.error("json=" + resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().get("json"));
+				log.error("xml=" + resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().get("xml"));
+				log.error("Resource had no contents; returning null");
+			}
+		} catch (IOException e) {
+			log.error("", e);
+		} catch (ClassCastException e) {
+			log.error("Cast", e);
+		} catch (NullPointerException e) {
+			log.debug("reader=" + reader);
+			log.debug("uri=" + uri);
+			log.debug("resourceSet=" + resourceSet);
+			log.debug("resource=" + resource);
+			for (Map.Entry<java.lang.String, Object> entry : resourceSet.getResourceFactoryRegistry()
+					.getExtensionToFactoryMap().entrySet()) {
+				log.debug("key=" + entry.getKey() + " value=" + entry.getValue().getClass().getName());
+			}
+			log.error("NPE", e);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return null;
+	}
+
 	private static void checkJsonField(JsonNode node, String fieldName) {
 		if (!node.has(fieldName) || node.get(fieldName).isNull()) {
 			log.error("JSON is missing required field: " + fieldName);
@@ -261,7 +298,7 @@ public class FHIRSerDeser {
     }
 
 	public static EObject loadJSON(JsonNode jn) {
-		URI uri = URI.createURI("input.json");
+		URI uri = assembleURI(Finals.SDS_FORMAT.JSON);
 		resource = resourceSet.createResource(uri);
 		EObject eObject = null;
 		try {
@@ -304,6 +341,8 @@ public class FHIRSerDeser {
 			return saveXML(eObject);
 		case JSON:
 			return saveJSON(eObject);
+		case ECORE:
+			return saveECORE(eObject);
 //		case RDF_TTL:
 //			return saveRDF(eObject, RDFFormat.TURTLE);
 //		case RDF_N3:
@@ -315,7 +354,7 @@ public class FHIRSerDeser {
 	}
 
 	static OutputStream saveXML(EObject eObject) {
-		URI uri = URI.createURI("output.xml");
+		URI uri = assembleURI(Finals.SDS_FORMAT.XML);
 		ByteArrayOutputStream writer = null;
 		resource = resourceSet.createResource(uri);
 		resource.getContents().add(eObject);
@@ -330,7 +369,7 @@ public class FHIRSerDeser {
 	}
 
 	static OutputStream saveJSON(EObject eObject) {
-		URI uri = URI.createURI("output.json");
+		URI uri = assembleURI(Finals.SDS_FORMAT.JSON);
 		ByteArrayOutputStream writer = null;
 		resource = resourceSet.createResource(uri);
 		resource.getContents().add(eObject);
@@ -342,6 +381,21 @@ public class FHIRSerDeser {
 			writer.close();
 		} catch (JsonProcessingException e) {
 			log.error("", e);
+		} catch (IOException e) {
+			log.error("", e);
+		}
+		return writer;
+	}
+
+	static OutputStream saveECORE(EObject eObject) {
+		URI uri = assembleURI(Finals.SDS_FORMAT.ECORE);
+		ByteArrayOutputStream writer = null;
+		resource = resourceSet.createResource(uri);
+		resource.getContents().add(eObject);
+		try {
+			writer = new ByteArrayOutputStream();
+			resource.save(writer, Collections.EMPTY_MAP);
+			writer.close();
 		} catch (IOException e) {
 			log.error("", e);
 		}
@@ -374,6 +428,11 @@ public class FHIRSerDeser {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	static URI assembleURI(SDS_FORMAT ext) {
+		return URI.createURI(String.format("%s:///%s.%s",Finals.SCHEME, UUID.randomUUID().toString(), ext.getValue()));
+//		return URI.createURI(Finals.SCHEME + ":///" + UUID.randomUUID().toString() + "." +  Finals.SDS_FORMAT.JSON);
 	}
 
 	static java.lang.String assembleFullName(java.lang.String resourceName) {

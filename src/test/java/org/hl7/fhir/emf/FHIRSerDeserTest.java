@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.hl7.fhir.Address;
 import org.hl7.fhir.Bundle;
@@ -35,9 +36,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class FHIRSDSTest {
+public class FHIRSerDeserTest {
 
-	private static final Logger log = LoggerFactory.getLogger(FHIRSDSTest.class);
+	private static final Logger log = LoggerFactory.getLogger(FHIRSerDeserTest.class);
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -45,7 +46,7 @@ class FHIRSDSTest {
 
 	@Test
 	void testLoad() {
-		InputStream reader = FHIRSDSTest.class.getClassLoader().getResourceAsStream("Alicia.json");
+		InputStream reader = FHIRSerDeserTest.class.getClassLoader().getResourceAsStream("Alicia.json");
 		try {
 			EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.JSON);
 			assertNotNull(eObject);
@@ -58,7 +59,7 @@ class FHIRSDSTest {
 //	@Test
 	void testLoadJSONBundle() {
 		InputStream reader = null;
-		reader = FHIRSDSTest.class.getClassLoader().getResourceAsStream("Alicia.json");
+		reader = FHIRSerDeserTest.class.getClassLoader().getResourceAsStream("Alicia.json");
 
 		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
@@ -90,7 +91,7 @@ class FHIRSDSTest {
 //	@Test
 	void testLoadJSONAddr1() {
 		InputStream reader = null;
-		reader = FHIRSDSTest.class.getClassLoader().getResourceAsStream("Alicia.json");
+		reader = FHIRSerDeserTest.class.getClassLoader().getResourceAsStream("Alicia.json");
 		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		Address sut = (Address) eObject;
@@ -234,6 +235,14 @@ class FHIRSDSTest {
 		assertNotNull(eObject);
 		Patient sut = (Patient) eObject;
 		assertNotNull(sut);
+	}
+
+	@Test
+	void testAssembleURI() {
+		URI uri = FHIRSerDeser.assembleURI(Finals.SDS_FORMAT.XML);
+		assertNotNull(uri);
+		assertEquals(Finals.SCHEME, uri.scheme());
+		assertEquals(Finals.SDS_FORMAT.XML.toString(), uri.fileExtension());
 	}
 
 ////	@Test
