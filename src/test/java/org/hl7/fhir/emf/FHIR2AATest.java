@@ -52,7 +52,7 @@ class FHIR2AATest {
 					out.mkdir();
 				}
 				reader = new FileInputStream(file);
-				EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
+				EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.JSON);
 				Bundle bundle = (Bundle) eObject;
 				List<BundleEntry> entries = new ArrayList<>(bundle.getEntry().size());
 				entries.addAll(bundle.getEntry());
@@ -113,7 +113,7 @@ class FHIR2AATest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 		assertNotNull(eObject);
 		Patient sut = (Patient) eObject;
 		LOG.info("Patient-1=" + sut.eClass().getName());
@@ -133,7 +133,7 @@ class FHIR2AATest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 		assertNotNull(eObject);
 		Observation sut = (Observation) eObject;
 		LOG.info("Observation-1=" + sut.eClass().getName());
@@ -153,7 +153,7 @@ class FHIR2AATest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 		assertNotNull(eObject);
 		Observation sut = (Observation) eObject;
 		LOG.info("Observation-1=" + sut.eClass().getName());

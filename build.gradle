@@ -3,11 +3,12 @@ plugins {
 	id 'java-library'
 	id 'eclipse'
     id 'maven-publish'
+//    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-group = 'com.cormac.fhir' // Set project-level property
+group = 'org.hl7.fhir.emf'
 version = '0.0.1' // Set project-level property
-def applicationName = 'FHIRSDS' // Local variable for the artifact name
+def applicationName = 'fhir.serdeser' // Local variable for the artifact name
 
 
 java {
@@ -33,27 +34,60 @@ sourceSets {
 }
 
 dependencies {
-	api files('libs/fhir.emf-4.3.0.jar')
+	implementation 'org.hl7:fhir.emf:4.3.0'
 	implementation 'org.eclipse.emfcloud:emfjson-jackson:2.2.0'    
-	implementation 'org.eclipse.emf:org.eclipse.emf.common:+'
-    implementation 'org.eclipse.emf:org.eclipse.emf.ecore:+'
-    implementation 'org.eclipse.emf:org.eclipse.emf.ecore.xmi:+'
+	implementation 'org.eclipse.emf:org.eclipse.emf.common:2.40.0'
+	implementation 'org.eclipse.emf:org.eclipse.emf.ecore:2.38.0'
+	implementation 'org.eclipse.emf:org.eclipse.emf.ecore.xmi:2.38.0'
 
    	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.6'
-    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+   	
+   	// Logging
+    implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.19.0' // Now correct for Log4j 2.19.0+
+    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
+	configurations.all {
+        exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+    }
+    
     api 'com.google.guava:guava:31.1-jre'
     testImplementation 'org.everit.json:org.everit.json.schema:1.5.0'
     testImplementation 'com.networknt:json-schema-validator:1.0.42'
-//    testImplementation(group: "com.github.java-json-tools", name: "json-schema-validator", version: "2.2.14");
-	 testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0' 
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version
+        )
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE  // Ignore duplicate entries
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.EC', 'META-INF/*.MF'
+}
+
+// shadowJar {
+//     archiveClassifier.set('')
+// }
+
 
 processResources {
   from ('src/main/java') {
      include '**/*.ecore'
   }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    jvmArgs '-Djava.security.manager=allow'
 }
 
 publishing {

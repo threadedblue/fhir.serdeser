@@ -48,7 +48,7 @@ class SDCoreTest {
 			e.printStackTrace();
 		}
 		try {
-			EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+			EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 			assertNotNull(eObject);
 			LOG.info("eObject=" + eObject.eClass().getName());
 			StructureDefinition sut = (StructureDefinition) eObject;
@@ -72,7 +72,7 @@ class SDCoreTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.JSON);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.JSON);
 		assertNotNull(eObject);
 		Patient sut = (Patient) eObject;
 		LOG.info("Patient=" + sut.eClass().getName());

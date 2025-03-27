@@ -54,7 +54,7 @@ class FHIR2PathTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 		assertNotNull(eObject);
 		Patient pat = (Patient) eObject;
 		EClass eClass = eObject.eClass();
@@ -71,7 +71,7 @@ class FHIR2PathTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 		assertNotNull(eObject);
 		Patient pat = (Patient) eObject;
 		Iterator itr = pat.eAllContents();
@@ -94,7 +94,7 @@ class FHIR2PathTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EObject eObject = FHIRSDS.load(reader, Finals.SDS_FORMAT.XML);
+		EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.XML);
 		EClass eClass = eObject.eClass();
 		EList<EAttribute> eAttributes = eClass.getEAllAttributes();
 		EList<EReference> eReferences = eClass.getEAllReferences();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>FHIRSDS</name>
-	<comment>Serialzers/deserializers for FHIR resources that are generated EMF</comment>
+	<name>fhir.serdeser</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
