@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
@@ -25,6 +27,7 @@ import org.eclipse.emfcloud.jackson.annotations.EcoreTypeInfo;
 import org.eclipse.emfcloud.jackson.databind.EMFContext;
 import org.eclipse.emfcloud.jackson.databind.deser.ReferenceEntry;
 import org.eclipse.emfcloud.jackson.module.EMFModule;
+import org.eclipse.emfcloud.jackson.resource.JsonResource;
 import org.eclipse.emfcloud.jackson.resource.JsonResourceFactory;
 import org.eclipse.emfcloud.jackson.utils.ValueReader;
 import org.eclipse.emfcloud.jackson.utils.ValueWriter;
@@ -71,6 +74,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -361,7 +365,13 @@ public class FHIRSerDeser {
 		resource.getContents().add(eObject);
 		try {
 			writer = new ByteArrayOutputStream();
-			resource.save(writer, Collections.EMPTY_MAP);
+			Map<Object, Object> options = new HashMap<>();
+			options.put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+			options.put(XMLResource.OPTION_DECLARE_XML, Boolean.TRUE);
+			options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+			options.put(XMLResource.OPTION_LINE_WIDTH, 80);
+			options.put(XMLResource.OPTION_FORMATTED, Boolean.TRUE);  // 💡 Pretty-printing option
+			resource.save(writer, options);
 			writer.close();
 		} catch (IOException e) {
 			log.error("", e);
@@ -380,6 +390,9 @@ public class FHIRSerDeser {
 			java.lang.String s = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resource);
 			writer.write(s.getBytes());
 			writer.close();
+			Map<Object, Object> options = new HashMap<>();
+			options.put(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);	
+			resource.save(writer, options);
 		} catch (JsonProcessingException e) {
 			log.error("", e);
 		} catch (IOException e) {
@@ -395,7 +408,13 @@ public class FHIRSerDeser {
 		resource.getContents().add(eObject);
 		try {
 			writer = new ByteArrayOutputStream();
-			resource.save(writer, Collections.EMPTY_MAP);
+			Map<Object, Object> options = new HashMap<>();
+			options.put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+			options.put(XMLResource.OPTION_DECLARE_XML, Boolean.TRUE);
+			options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+			options.put(XMLResource.OPTION_LINE_WIDTH, 80);
+			options.put(XMLResource.OPTION_FORMATTED, Boolean.TRUE);  // 💡 Pretty-printing option
+			resource.save(writer, options);
 			writer.close();
 		} catch (IOException e) {
 			log.error("", e);
