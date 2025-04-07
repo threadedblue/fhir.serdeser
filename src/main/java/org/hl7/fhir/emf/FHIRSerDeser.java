@@ -27,7 +27,6 @@ import org.eclipse.emfcloud.jackson.annotations.EcoreTypeInfo;
 import org.eclipse.emfcloud.jackson.databind.EMFContext;
 import org.eclipse.emfcloud.jackson.databind.deser.ReferenceEntry;
 import org.eclipse.emfcloud.jackson.module.EMFModule;
-import org.eclipse.emfcloud.jackson.resource.JsonResource;
 import org.eclipse.emfcloud.jackson.resource.JsonResourceFactory;
 import org.eclipse.emfcloud.jackson.utils.ValueReader;
 import org.eclipse.emfcloud.jackson.utils.ValueWriter;
