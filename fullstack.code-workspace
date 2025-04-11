@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "../d4m.acc.access"
+		},
+		{
+			"path": "../d4m.acc.microservice"
+		},
+		{
+			"path": "../ecore.python"
+		},
+		{
+			"path": "../emfjson-jackson"
+		},
+		{
+			"path": "../fhir.emf-4.3.0"
+		},
+		{
+			"path": "../fhir.emf-5.0.0"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}
