@@ -1,8 +1,6 @@
 package org.hl7.fhir.emf.deser;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -56,15 +54,15 @@ public class ResourceContainerDeserializer extends JsonDeserializer<ResourceCont
 		// } catch (InvocationTargetException e) {
 		// 	e.printStackTrace();
 		// }
-		for (EStructuralFeature feature : resourceContainer.eClass().getEAllStructuralFeatures()) {
-			log.debug("befeature=" + feature.getName());
-			if (feature instanceof EReference) {
-				if (feature.getName().equalsIgnoreCase(s)) {
-					resourceContainer.eSet(feature, eObject);
-					break;
-				}
-			}
-		}
+		// for (EStructuralFeature feature : resourceContainer.eClass().getEAllStructuralFeatures()) {
+		// 	log.debug("befeature=" + feature.getName());
+		// 	if (feature instanceof EReference) {
+		// 		if (feature.getName().equalsIgnoreCase(s)) {
+		// 			resourceContainer.eSet(feature, eObject);
+		// 			break;
+		// 		}
+		// 	}
+		// }
 		log.debug("beresourceContainer=" + (EObjectContainmentEList)resourceContainer.eClass().getEStructuralFeature(s));
 		return resourceContainer;
 	}

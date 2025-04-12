@@ -1,10 +1,10 @@
-# FHIRSDS
+# fhir.serdeser
 ## FHIR Serialize/Deserialize
-FHIRSDS works in the hands of its maker but none other.
+fhir.serdeser works in the hands of its maker but none other.
 
 It is primarily a set of functions that can be called statically to manipulate an EObject that is the super type of a FHIR resource.  
 
-### FHIRSDS loads and saves FHIR resources to and from XML. JSON.  RDF is not supported.
+### fhir.serdeser loads and saves FHIR resources to and from XML. JSON.  RDF is not supported.
 
 ### FHIRAA loads and saves to AA (associative array)
 

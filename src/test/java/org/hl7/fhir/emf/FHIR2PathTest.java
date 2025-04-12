@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3._1999.xhtml.XhtmlPackage;
-import org.w3.xml._1998.namespace.NamespacePackage;
 
 class FHIR2PathTest {
 
@@ -43,7 +42,6 @@ class FHIR2PathTest {
 		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		resourceSet.getPackageRegistry().put(XhtmlPackage.eNS_URI, XhtmlPackage.eINSTANCE);
 		resourceSet.getPackageRegistry().put(FhirPackage.eNS_URI, FhirPackage.eINSTANCE);
-		resourceSet.getPackageRegistry().put(NamespacePackage.eNS_URI, NamespacePackage.eINSTANCE);
 	}
 
 	@Test
