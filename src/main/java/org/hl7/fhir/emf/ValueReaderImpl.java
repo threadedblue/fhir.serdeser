@@ -1,7 +1,7 @@
 package org.hl7.fhir.emf;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emfcloud.jackson.utils.ValueReader;
+import org.emfjson.jackson.utils.ValueReader;
 import org.hl7.fhir.FhirPackage;
 
 import com.fasterxml.jackson.databind.DeserializationContext;

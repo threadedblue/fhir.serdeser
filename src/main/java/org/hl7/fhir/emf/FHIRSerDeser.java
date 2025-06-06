@@ -11,9 +11,7 @@ import java.util.UUID;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -22,59 +20,24 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
-import org.eclipse.emfcloud.jackson.annotations.EcoreIdentityInfo;
-import org.eclipse.emfcloud.jackson.annotations.EcoreTypeInfo;
-import org.eclipse.emfcloud.jackson.databind.EMFContext;
-import org.eclipse.emfcloud.jackson.databind.deser.ReferenceEntry;
-import org.eclipse.emfcloud.jackson.module.EMFModule;
-import org.eclipse.emfcloud.jackson.resource.JsonResourceFactory;
-import org.eclipse.emfcloud.jackson.utils.ValueReader;
-import org.eclipse.emfcloud.jackson.utils.ValueWriter;
+import org.emfjson.jackson.annotations.EcoreIdentityInfo;
+import org.emfjson.jackson.annotations.EcoreReferenceInfo;
+import org.emfjson.jackson.annotations.EcoreTypeInfo;
+import org.emfjson.jackson.databind.EMFContext;
+import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.hl7.fhir.FhirPackage;
-import org.hl7.fhir.ResourceContainer;
 import org.hl7.fhir.emf.Finals.SDS_FORMAT;
-import org.hl7.fhir.emf.deser.Base64Deserializer;
-import org.hl7.fhir.emf.deser.BooleanDeserializer;
 import org.hl7.fhir.emf.deser.BundleTypeDeserializer;
-import org.hl7.fhir.emf.deser.CanonicalDeserializer;
-import org.hl7.fhir.emf.deser.CodeDeserializer;
-import org.hl7.fhir.emf.deser.DateDeserializer;
-import org.hl7.fhir.emf.deser.DateTimeDeserializer;
-import org.hl7.fhir.emf.deser.DecimalDeserializer;
-import org.hl7.fhir.emf.deser.InstantDeserializer;
-import org.hl7.fhir.emf.deser.IntegerDeserializer;
-import org.hl7.fhir.emf.deser.ResourceContainerDeserializer;
-import org.hl7.fhir.emf.deser.StringDeserializer;
-import org.hl7.fhir.emf.deser.TimeDeserializer;
-import org.hl7.fhir.emf.deser.UriDeserializer;
-import org.hl7.fhir.emf.deser.UrlDeserializer;
 import org.hl7.fhir.emf.deser.enm.*;
-import org.hl7.fhir.emf.ser.Base64Serializer;
-import org.hl7.fhir.emf.ser.BooleanSerializer;
-import org.hl7.fhir.emf.ser.CodeSerializer;
-import org.hl7.fhir.emf.ser.DateSerializer;
-import org.hl7.fhir.emf.ser.DateTimeSerializer;
-import org.hl7.fhir.emf.ser.DecimalSerializer;
-import org.hl7.fhir.emf.ser.InstantSerializer;
-import org.hl7.fhir.emf.ser.IntegerSerializer;
-import org.hl7.fhir.emf.ser.StringSerializer;
-import org.hl7.fhir.emf.ser.TimeSerializer;
-import org.hl7.fhir.emf.ser.UriSerializer;
-import org.hl7.fhir.emf.ser.UrlSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3._1999.xhtml.XhtmlPackage;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class FHIRSerDeser {
@@ -83,7 +46,8 @@ public class FHIRSerDeser {
 
 	private static ResourceSet resourceSet = new ResourceSetImpl();
 	private static Resource resource;
-	private static EMFModule module = new EMFModule();
+	private static FHIRModule module = new FHIRModule();
+
 	private static ObjectMapper mapper = new ObjectMapper();
 
 	static {
@@ -104,77 +68,77 @@ public class FHIRSerDeser {
 //		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ttl", new TTLResourceFactory());
 //		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("nt", new NTResourceFactory());
 
-		module.setTypeInfo(new EcoreTypeInfo("resourceType", new ValueReader<java.lang.String, EClass>() {
+// 		module.addSerializer(org.hl7.fhir.Base64Binary.class, new Base64Serializer());
+// 		module.addSerializer(org.hl7.fhir.Boolean.class, new BooleanSerializer());
+// 		module.addSerializer(org.hl7.fhir.Code.class, new CodeSerializer());
+// 		module.addSerializer(org.hl7.fhir.Date.class, new DateSerializer());
+// 		module.addSerializer(org.hl7.fhir.DateTime.class, new DateTimeSerializer());
+// 		module.addSerializer(org.hl7.fhir.Decimal.class, new DecimalSerializer());
+// 		module.addSerializer(org.hl7.fhir.Instant.class, new InstantSerializer());
+// 		module.addSerializer(org.hl7.fhir.Integer.class, new IntegerSerializer());
+// 		module.addSerializer(org.hl7.fhir.String.class, new StringSerializer());
+// 		module.addSerializer(org.hl7.fhir.Time.class, new TimeSerializer());
+// 		module.addSerializer(org.hl7.fhir.Uri.class, new UriSerializer());
+// 		module.addSerializer(org.hl7.fhir.Url.class, new UrlSerializer());
 
-			@Override
-			public EClass readValue(java.lang.String value, DeserializationContext context) {
-				return (EClass) FhirPackage.eINSTANCE.getEClassifier(value);
-			}
-		}, new ValueWriter<EClass, java.lang.String>() {
-			@Override
-			public java.lang.String writeValue(EClass value, SerializerProvider context) {
-				return value.getName();
-			}
-		}));
+// 		module.addDeserializer(org.hl7.fhir.Base64Binary.class, new Base64Deserializer());
+// 		module.addDeserializer(org.hl7.fhir.Boolean.class, new BooleanDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.BundleType.class, new BundleTypeDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Canonical.class, new CanonicalDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Code.class, new CodeDeserializer());
 
-		module.setIdentityInfo(new EcoreIdentityInfo("_id", new ValueWriterIdImpl()));
-		module.setReferenceDeserializer(new JsonDeserializer<ReferenceEntry>() {
-			@Override
-			public ReferenceEntry deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
-				final EObject parent = EMFContext.getParent(ctxt);
-				final EReference reference = EMFContext.getReference(ctxt);
-				log.info("ReferenceDeserializer====>" + "parent=" + parent.eClass().getName() + " reference="
-						+ reference.getName());
+// 		module.addDeserializer(org.hl7.fhir.Date.class, new DateDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.DateTime.class, new DateTimeDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Decimal.class, new DecimalDeserializer());
 
-				if (parser.getCurrentToken() == JsonToken.FIELD_NAME) {
-					parser.nextToken();
-				}
+// 		module.addDeserializer(org.hl7.fhir.Instant.class, new InstantDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Integer.class, new IntegerDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.String.class, new StringDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Time.class, new TimeDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Uri.class, new UriDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Url.class, new UrlDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.BundleType.class, new BundleTypeDeserializer());
+// 		module.addDeserializer(org.hl7.fhir.Canonical.class, new CanonicalDeserializer());
 
-				return new ReferenceEntry.Base(parent, reference, parser.getText());
-			}
-		});
-
-		module.addSerializer(org.hl7.fhir.Base64Binary.class, new Base64Serializer());
-		module.addSerializer(org.hl7.fhir.Boolean.class, new BooleanSerializer());
-		module.addSerializer(org.hl7.fhir.Code.class, new CodeSerializer());
-		module.addSerializer(org.hl7.fhir.Date.class, new DateSerializer());
-		module.addSerializer(org.hl7.fhir.DateTime.class, new DateTimeSerializer());
-		module.addSerializer(org.hl7.fhir.Decimal.class, new DecimalSerializer());
-		module.addSerializer(org.hl7.fhir.Instant.class, new InstantSerializer());
-		module.addSerializer(org.hl7.fhir.Integer.class, new IntegerSerializer());
-		module.addSerializer(org.hl7.fhir.String.class, new StringSerializer());
-		module.addSerializer(org.hl7.fhir.Time.class, new TimeSerializer());
-		module.addSerializer(org.hl7.fhir.Uri.class, new UriSerializer());
-		module.addSerializer(org.hl7.fhir.Url.class, new UrlSerializer());
-
-		module.addDeserializer(org.hl7.fhir.Base64Binary.class, new Base64Deserializer());
-		module.addDeserializer(org.hl7.fhir.Boolean.class, new BooleanDeserializer());
-		module.addDeserializer(org.hl7.fhir.BundleType.class, new BundleTypeDeserializer());
-		module.addDeserializer(org.hl7.fhir.Canonical.class, new CanonicalDeserializer());
-		module.addDeserializer(org.hl7.fhir.Code.class, new CodeDeserializer());
-
-		module.addDeserializer(org.hl7.fhir.Date.class, new DateDeserializer());
-		module.addDeserializer(org.hl7.fhir.DateTime.class, new DateTimeDeserializer());
-		module.addDeserializer(org.hl7.fhir.Decimal.class, new DecimalDeserializer());
-
-		module.addDeserializer(org.hl7.fhir.Instant.class, new InstantDeserializer());
-		module.addDeserializer(org.hl7.fhir.Integer.class, new IntegerDeserializer());
-		module.addDeserializer(org.hl7.fhir.String.class, new StringDeserializer());
-		module.addDeserializer(org.hl7.fhir.Time.class, new TimeDeserializer());
-		module.addDeserializer(org.hl7.fhir.Uri.class, new UriDeserializer());
-		module.addDeserializer(org.hl7.fhir.Url.class, new UrlDeserializer());
-		module.addDeserializer(org.hl7.fhir.BundleType.class, new BundleTypeDeserializer());
-		module.addDeserializer(org.hl7.fhir.Canonical.class, new CanonicalDeserializer());
-
-		//		module.addDeserializer(org.hl7.fhir.BundleEntry.class, new BundleEntryDeserializer());
-		module.addDeserializer(ResourceContainer.class, new ResourceContainerDeserializer());
-//		module.addDeserializer(BundleType.class, new BundleTypeDeserializer());
-		addEnumDeserializers();
+// 		//		module.addDeserializer(org.hl7.fhir.BundleEntry.class, new BundleEntryDeserializer());
+// 		module.addDeserializer(ResourceContainer.class, new ResourceContainerDeserializer());
+// //		module.addDeserializer(BundleType.class, new BundleTypeDeserializer());
+// 		addEnumDeserializers();
 
 		mapper.registerModule(module);
+		mapper.setConfig(
+			mapper.getDeserializationConfig()
+				.withAttribute(ResourceSet.class, resourceSet))
+			.setConfig(
+			mapper.getSerializationConfig()
+				.withAttribute(ResourceSet.class, resourceSet));
+
+		mapper.setConfig(
+			mapper.getDeserializationConfig()
+				.withAttribute(FHIRModule.class, module))
+			.setConfig(
+			mapper.getSerializationConfig()
+				.withAttribute(FHIRModule.class, module));
+
+		mapper.setConfig(mapper.getDeserializationConfig()
+                   .withAttribute(EcoreIdentityInfo.class, module.getIdentityInfo()))
+  			.setConfig(mapper.getSerializationConfig()
+                   .withAttribute(EcoreIdentityInfo.class, module.getIdentityInfo()));
+
+		mapper.setConfig(mapper.getDeserializationConfig()
+                   .withAttribute(EcoreTypeInfo.class, module.getTypeInfo()))
+  			.setConfig(mapper.getSerializationConfig()
+                   .withAttribute(EcoreTypeInfo.class, module.getTypeInfo()));
+
+				
+		mapper.setConfig(mapper.getDeserializationConfig()
+                   .withAttribute(EcoreReferenceInfo.class, module.getReferenceInfo()))
+  			.setConfig(mapper.getSerializationConfig()
+                   .withAttribute(EcoreReferenceInfo.class, module.getReferenceInfo()));
 	}
 
 	public static EObject load(InputStream reader, SDS_FORMAT format) {
+		log.trace("load==>");
 		switch (format) {
 		case XML:
 			return loadXML(reader);
@@ -192,6 +156,7 @@ public class FHIRSerDeser {
 	}
 
 	public static EObject loadXML(InputStream reader) {
+		log.trace("loadXML==>");
 		URI uri = assembleURI(Finals.SDS_FORMAT.XML);
 
 		try {
@@ -226,15 +191,15 @@ public class FHIRSerDeser {
 		return null;
 	}
 
-
 	public static EObject loadJSON(InputStream reader) {
+		log.trace("loadJSON==>");
 		EObject eObject = null;
 		try {
 			JsonNode jn = mapper.readTree(reader);
 			log.info("Checking required fields before parsing...");
 
 			checkJsonField(jn, "resourceType");
-			checkJsonField(jn, "snapshot");  // Make sure it's available
+//			checkJsonField(jn, "snapshot");  // Make sure it's available
 			checkJsonField(jn, "name");      // Additional key checks
 			
 			removeExtensions(jn);
@@ -304,6 +269,7 @@ public class FHIRSerDeser {
     }
 
 	public static EObject loadJSON(JsonNode jn) {
+		log.trace("loadJSON==>2");
 		URI uri = assembleURI(Finals.SDS_FORMAT.JSON);
 		resource = resourceSet.createResource(uri);
 		EObject eObject = null;

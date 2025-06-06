@@ -1,7 +1,7 @@
 package org.hl7.fhir.emf;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emfcloud.jackson.utils.ValueWriter;
+import org.emfjson.jackson.utils.ValueWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

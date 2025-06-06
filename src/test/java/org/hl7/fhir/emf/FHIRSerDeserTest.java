@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.hl7.fhir.Address;
@@ -25,6 +26,7 @@ import org.hl7.fhir.ContactPointSystem;
 import org.hl7.fhir.ContactPointSystemEnum;
 import org.hl7.fhir.ExplanationOfBenefit;
 import org.hl7.fhir.FhirFactory;
+import org.hl7.fhir.HumanName;
 import org.hl7.fhir.Organization;
 import org.hl7.fhir.Patient;
 import org.hl7.fhir.Practitioner;
@@ -46,11 +48,21 @@ public class FHIRSerDeserTest {
 
 	@Test
 	void testLoad() {
-		InputStream reader = FHIRSerDeserTest.class.getClassLoader().getResourceAsStream("Alicia.json");
+		InputStream reader = FHIRSerDeserTest.class.getClassLoader().getResourceAsStream("AliciaPatez.json");
 		try {
 			EObject eObject = FHIRSerDeser.load(reader, Finals.SDS_FORMAT.JSON);
 			assertNotNull(eObject);
-			log.info("eObject=" + eObject.eClass().getName());
+			log.info("eObject=={}", eObject.eClass().getName());
+			Patient patient = (Patient) eObject;
+			OutputStream writer = FHIRSerDeser.save(patient, Finals.SDS_FORMAT.XML);
+			log.debug("Patient as XML=={}", writer.toString());
+			log.info("patient.id=={}", patient.getId().getValue());
+			EList<HumanName> name = patient.getName();
+			assertNotNull(name);
+//			assertEquals(name.size(), 1);
+			log.info("patient.name.size=={}", name.size());
+			// log.info("patient.name.family=={}", name.get(0).getFamily());
+			// log.info("patient.name.given=={}", name.get(0).getGiven());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
